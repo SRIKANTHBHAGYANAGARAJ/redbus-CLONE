@@ -1,16 +1,9 @@
-const Booking = require("../models/boooking");
-exports.addBooking = async (req, res) => {
-  // code here
-  const booking = await Booking.create(req.body);
-  //console.log(booking);
-  res.send(booking);
-};
-exports.getBooking = async (req, res) => {
-  // code here
-  let { id } = req.params;
-  const bookings = await Booking.find().lean().exec();
-  let filteredBookings = bookings.filter(
-    (booking) => booking.customerId.toString() == id
-  );
-  res.send(filteredBookings);
-};
+const express = require("express");
+const router = express.Router();
+const bookingController = require("../controllers/booking");
+
+// Use like this
+
+router.post("/v1/api/booking", bookingController.addBooking);
+router.get("/v1/api/booking/:id", bookingController.getBooking);
+module.exports = router;
