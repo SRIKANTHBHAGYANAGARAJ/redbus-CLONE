@@ -1,15 +1,13 @@
-const BookingHire = require("../models/bookingHire");
-exports.addBookingHire = async (req, res) => {
-  // code here
-  const bookingHire = await BookingHire.create(req.body);
-  res.send(bookingHire);
-};
-exports.getBookingHire = async (req, res) => {
-  // code here
-  let { email } = req.params;
-  const bookings = await BookingHire.find().lean().exec();
-  let filteredBookings = bookings.filter(
-    (booking) => booking.email.toString() == email
-  );
-  res.send(filteredBookings);
-};
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const bookingHireSchema = new Schema({
+  pickUp: String,
+  drop: String,
+  totalPassengers: String,
+  fare: Number,
+  email: String,
+  pickUpDate: String,
+  dropDate: String,
+});
+
+module.exports = mongoose.model("BookingsHire", bookingHireSchema);
