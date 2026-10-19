@@ -1,34 +1,7 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const customerSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  googleId: {
-    type: String,
-    required: false,
-  },
-  age: {
-    type: Number,
-    required: false,
-  },
-  gender: {
-    type: String,
-    required: false,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  dateOfBirth: {
-    type: String,
-    required: false,
-  },
-  profilePicture: {
-    type: String,
-    required: false,
-  },
-});
+const express = require("express");
+const router = express.Router();
+const customerController = require("../controllers/customer");
 
-module.exports = mongoose.model("Customers", customerSchema);
+router.post("/v1/api/customers", customerController.addNewCustomer);
+
+module.exports = router;

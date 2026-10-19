@@ -1,24 +1,12 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const routesSchema = new Schema({
-  departureLocation: {
-    name: {
-      type: String,
-      required: true,
-    },
-    subLocations: { type: [String] },
-  },
-  arrivalLocation: {
-    name: {
-      type: String,
-      required: true,
-    },
-    subLocations: { type: [String] },
-  },
-  duration: {
-    type: Number,
-    required: true,
-  },
-});
+const express = require("express");
+const router = express.Router();
+const routeController = require("../controllers/route");
 
-module.exports = mongoose.model("Routes", routesSchema);
+// get all routes
+router.get("/v1/api/routes", routeController.getAllRoutes);
+// get particular route based on departure and arrival location
+router.get(
+  "/v1/api/routes/:departure/:arrival/:date",
+  routeController.getOneRoute
+);
+module.exports = router;
