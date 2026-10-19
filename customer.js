@@ -1,13 +1,34 @@
-const Customer = require("../models/customer");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const customerSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  googleId: {
+    type: String,
+    required: false,
+  },
+  age: {
+    type: Number,
+    required: false,
+  },
+  gender: {
+    type: String,
+    required: false,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  dateOfBirth: {
+    type: String,
+    required: false,
+  },
+  profilePicture: {
+    type: String,
+    required: false,
+  },
+});
 
-// will add customer if custmer with that email does not exist
-exports.addNewCustomer = async (req, res) => {
-  let email = req.body.email;
-  let existingCustomer = await Customer.findOne({ email: email }).lean().exec();
-  if (existingCustomer) {
-    res.send(existingCustomer);
-  } else {
-    let newCustomer = await Customer.create(req.body);
-    res.send(newCustomer);
-  }
-};
+module.exports = mongoose.model("Customers", customerSchema);
